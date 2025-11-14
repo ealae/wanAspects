@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "wanaspects"
+version = "0.1.0"
+description = "Aspect-oriented telemetry and observability for wanEcosystem"
+authors = ["Jean Philippe Wan <jeanphilippe.wan@statcan.gc.ca>"]
+license = "GPL-3.0-or-later OR LicenseRef-Commercial"
+readme = "README.md"
+packages = [
+  { include = "wanaspects", from = "src" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.15"
+structlog = ">=23.1.0"
+opentelemetry-api = ">=1.20.0"
+opentelemetry-sdk = ">=1.20.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4"
+pytest-cov = "^4.1"
+mypy = "^1.10"
+ruff = "^0.6.0"
+build = "^1.2"
+twine = "^5.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E","F","W","I","UP","B","PL"]
+ignore = []
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+explicit_package_bases = true
+mypy_path = "src"
+files = ["src/wanaspects"]
+
+# Per-module overrides
+[[tool.mypy.overrides]]
+module = [
+  "structlog",
+  "structlog.*",
+  "opentelemetry",
+  "opentelemetry.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "-q --maxfail=1"
+testpaths = ["tests"]

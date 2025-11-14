@@ -1,0 +1,44 @@
+# Public Release Inclusion List
+# ONLY these files and folders will be synced to public repository
+# This is an ALLOWLIST approach - safer than exclusion patterns
+
+# Core source code
+src/
+
+# Tests (all types)
+tests/
+
+# Public documentation
+README.md
+CONTRIBUTING.md
+LICENSE
+CHANGELOG.md
+docs/
+
+# Configuration files
+pyproject.toml
+setup.py
+setup.cfg
+poetry.lock
+requirements.txt
+environment.yml
+
+# CI/CD
+.gitlab-ci.yml
+.github/workflows/
+
+# Git configuration
+.gitignore
+.gitattributes
+
+# Examples and scripts (curate carefully)
+examples/
+
+# Project metadata
+.editorconfig
+
+# Add more patterns as needed for your project
+# Uncomment and customize:
+# assets/
+# config/
+# data/sample/
