@@ -1,7 +1,6 @@
 import logging
 
 import pytest
-
 from wanaspects.aspects.logging import LoggingAspect
 from wanaspects.core.context import AdviceContext
 from wanaspects.manager import AspectManager

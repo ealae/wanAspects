@@ -11,7 +11,7 @@ This README exists at the repository root so Poetry can package the project succ
 
 This project uses an allowlist-based approach to control what is mirrored publicly. The `.public-release-include` file in the repository root lists content that may be included in a public release. Any path segment that begins with an underscore (for example: `_internal/`) is considered internal and will be excluded from public releases by default.
 
-Maintainers only: internal release and scanning tools live under `scripts/_internal/_release/` and are not included in the public mirror; use those tools to validate and perform the public sync.
+Maintainers only: internal release and scanning tools remain in the private toolchain; use those private utilities to validate and perform the public sync.
 
 ## License & Changelog
 

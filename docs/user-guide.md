@@ -28,8 +28,10 @@ poetry install
 Run the quality gates once to ensure the environment is healthy:
 
 ```bash
-python scripts/_internal/check.py --fix  # format, lint, type-check, and run tests
-pytest -q                    # run the test suite directly when iterating
+ruff format .                 # auto-format
+ruff check src tests          # lint
+mypy --strict src/wanaspects  # type-check
+pytest -q                     # run the test suite
 ```
 
 ---

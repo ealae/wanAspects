@@ -5,6 +5,9 @@ from typing import Any
 from ..core.context import AdviceContext
 from .metrics import MetricsAspect
 
+_MIN_SAMPLE_RATE = 0.0
+_MAX_SAMPLE_RATE = 1.0
+
 
 class SampledMetricsAspect(MetricsAspect):
     """Metrics aspect with configurable sampling for high-throughput scenarios.
@@ -35,12 +38,16 @@ class SampledMetricsAspect(MetricsAspect):
                         Errors are always tracked regardless of sample rate.
         """
         super().__init__()
-        if not 0.0 < sample_rate <= 1.0:
-            raise ValueError(f"sample_rate must be between 0.0 and 1.0, got {sample_rate}")
+        if not _MIN_SAMPLE_RATE < sample_rate <= _MAX_SAMPLE_RATE:
+            msg = (
+                "sample_rate must be between "
+                f"{_MIN_SAMPLE_RATE} and {_MAX_SAMPLE_RATE}, got {sample_rate}"
+            )
+            raise ValueError(msg)
 
         self.sample_rate = sample_rate
         self._counter = 0
-        self._sample_interval = int(1.0 / sample_rate)
+        self._sample_interval = int(_MAX_SAMPLE_RATE / sample_rate)
 
     def _should_sample(self, error: Exception | None) -> bool:
         """Determine if this call should be sampled for metrics.

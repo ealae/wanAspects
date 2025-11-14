@@ -4,7 +4,6 @@ import logging
 from typing import Any
 
 import pytest
-
 from wanaspects.aspects import logging_extensions as domain_logging
 
 

@@ -1,7 +1,6 @@
 import logging
 
 import pytest
-
 from wanaspects.formatters.unicode_safe import UnicodeSafeFormatter
 
 
