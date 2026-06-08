@@ -26,8 +26,8 @@ Follow this path to get started:
 
 ## 🔧 For Contributors
 
-- **[AGENTS.md](../AGENTS.md)** - Repository-wide guidance for humans and agents contributing to wanAspects
-- Prefer Poetry (Python 3.10+) for local development, and run `pytest -q` before opening a PR
+- Prefer Poetry (Python 3.10+) for local development
+- Run `ruff format --check .`, `ruff check .`, `mypy`, and `pytest -q` before opening a PR
 - Release owners should follow the private release playbook (ask the release coordinator for access) before mirroring any changes
 
 ---

@@ -1,4 +1,5 @@
 import pytest
+
 from wanaspects.aspects.metrics import MetricsAspect
 from wanaspects.core.context import AdviceContext
 from wanaspects.manager import AspectManager

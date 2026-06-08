@@ -17,6 +17,11 @@
 | `log_json` | `WANCHAIN_LOG_JSON` | bool / `true` | JSON renderer when structlog is installed; falls back to key/value otherwise. |
 | `boundary_allow` | `WANCHAIN_BOUNDARY_ALLOW` | list/CSV / `["geo","io"]` | Allowed boundary types that may materialize. |
 | `metrics_enabled` | `WANCHAIN_METRICS_ENABLED` | bool / `false` | Enables metrics collection when tracing/logging are on. |
+| `metrics_exporter` | `WANCHAIN_METRICS_EXPORTER` | str / `"none"` | `none`, `prometheus`, or `otlp`. Installs a global MeterProvider so `wanchain_*` instruments actually export. Requires the `prometheus`/`otlp` extra. |
+| `metrics_port` | `WANCHAIN_METRICS_PORT` | int / `None` | For `prometheus`: start a standalone scrape HTTP server on this port (non-ASGI services). ASGI hosts mount `/metrics` themselves instead. |
+| `logs_exporter` | `WANCHAIN_LOGS_EXPORTER` | str / `"none"` | `none`, `otlp`, or `file`. Bridges stdlib logs (and step events) to OpenTelemetry with trace correlation. `otlp` ships to `otlp_endpoint` (needs the `otlp` extra); `file` writes JSONL to `telemetry_dir` in-process (no collector, works air-gapped). |
+| `traces_exporter` | `WANCHAIN_TRACES_EXPORTER` | str / `"none"` | `none`, `otlp`, `file`, or `console`. When `none`, falls back to legacy behaviour (`otlp` if `otlp_endpoint` is set, else `console` if `console_spans`). `file` writes span JSONL to `telemetry_dir`. |
+| `telemetry_dir` | `WANCHAIN_TELEMETRY_DIR` | str / `None` | Output directory for the `file` exporters. Files are `<service>.<pid>.<signal>.jsonl`, so many services/processes can share one dir. |
 | `dev_peek_max_rows` | `WANCHAIN_DEV_PEEK_MAX_ROWS` | int / `None` | Caps `.peek()` preview rows in dev; ignored when unset. |
 | `enable_redaction` | `WANCHAIN_ENABLE_REDACTION` | bool / `true` | Attach the redaction filter that masks sensitive keys before logging. |
 | `redact_keys` | `WANCHAIN_REDACT_KEYS` | list/CSV / `[]` | Additional keys (beyond defaults) to scrub when redaction is enabled. |
@@ -63,4 +68,5 @@ log_rotation_utc = false
   ```
   python -m wanaspects.diag
   ```
-- For a full quality gate (lint/mypy/tests) run `python scripts/run_quality_gates.py` which delegates to `poetry run ...`.
+- For a full quality gate, run `poetry run ruff format --check .`, `poetry run ruff check .`,
+  `poetry run mypy`, and `poetry run pytest`.

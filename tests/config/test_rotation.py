@@ -4,6 +4,7 @@ import logging
 from pathlib import Path
 
 import pytest
+
 from wanaspects.config import Config
 from wanaspects.config.rotation import setup_log_rotation
 

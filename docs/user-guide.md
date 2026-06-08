@@ -28,10 +28,9 @@ poetry install
 Run the quality gates once to ensure the environment is healthy:
 
 ```bash
-ruff format .                 # auto-format
-ruff check src tests          # lint
-mypy --strict src/wanaspects  # type-check
-pytest -q                     # run the test suite
+ruff format --check . && ruff check . && mypy --strict src/wanaspects && pytest -q
+# or, when iterating locally:
+pytest -q
 ```
 
 ---
@@ -177,7 +176,10 @@ Refer to [Telemetry 101](telemetry-101.md) for a conceptual primer and the OTLP 
 1. Run the demo script (console or OTLP exporter examples above) and confirm logs + spans appear.
 2. Execute quality gates before opening a pull request:
    ```bash
-   python scripts/run_quality_gates.py
+   poetry run ruff format --check .
+   poetry run ruff check .
+   poetry run mypy
+   poetry run pytest
    ```
 3. Inspect diagnostics (`python -m wanaspects.diag`) to confirm configuration and optional dependencies.
 
@@ -188,6 +190,6 @@ Refer to [Telemetry 101](telemetry-101.md) for a conceptual primer and the OTLP 
 - Dive into [Configuration Reference](configuration.md) for advanced tuning
 - Consult [Troubleshooting](troubleshooting.md) for common issues
 - Review [Telemetry 101](telemetry-101.md) and [Architecture Overview](architecture-overview.md) to understand the design
-- Contributors should read the internal [Development Workflow](./_internal/dev-workflow.md) and [Contributing Guide](./_internal/CONTRIBUTING.md)
+- Contributors should read the public [Contributing Guide](CONTRIBUTING.md) before opening changes
 
 With these steps, you have a streamlined path from installation to full telemetry integration.

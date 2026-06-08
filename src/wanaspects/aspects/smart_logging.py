@@ -33,9 +33,7 @@ class SmartLoggingAspect(LoggingAspect):
         # We still get full visibility from step_end and OTel spans
         return False
 
-    def _should_log_after(
-        self, ctx: AdviceContext, error: Exception | None
-    ) -> bool:
+    def _should_log_after(self, ctx: AdviceContext, error: Exception | None) -> bool:
         """Determine if step_end should be logged."""
         # ALWAYS log errors (100% error coverage)
         if error is not None:
@@ -62,9 +60,7 @@ class SmartLoggingAspect(LoggingAspect):
         if self._should_log_before(ctx):
             super().before(ctx)
 
-    def after(
-        self, ctx: AdviceContext, result: Any, error: Exception | None
-    ) -> None:
+    def after(self, ctx: AdviceContext, result: Any, error: Exception | None) -> None:
         """Log step_end based on tier and context."""
         if self._should_log_after(ctx, error):
             super().after(ctx, result, error)

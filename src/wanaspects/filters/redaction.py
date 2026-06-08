@@ -62,6 +62,7 @@ class RedactionFilter(logging.Filter):
         self._keys = frozenset(keys)
         self.placeholder = placeholder
         key_group = "|".join(sorted(re.escape(k) for k in self._keys))
+        self._string_patterns: tuple[re.Pattern[str], ...]
         if key_group:
             self._string_patterns = (
                 re.compile(

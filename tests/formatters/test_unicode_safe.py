@@ -1,6 +1,7 @@
 import logging
 
 import pytest
+
 from wanaspects.formatters.unicode_safe import UnicodeSafeFormatter
 
 
@@ -44,3 +45,12 @@ def test_force_replace_when_not_stripping() -> None:
     formatted = formatter.format(record)
 
     assert formatted == "Cache hit ?"
+
+
+def test_uvicorn_levelprefix_fallback() -> None:
+    formatter = UnicodeSafeFormatter("%(levelprefix)s %(message)s", encoding="utf-8")
+    record = make_record("Application startup complete.")
+
+    formatted = formatter.format(record)
+
+    assert formatted == "INFO Application startup complete."

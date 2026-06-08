@@ -10,7 +10,7 @@ poetry install  # or: pip install -e .
 poetry run python -m pip install opentelemetry-exporter-otlp  # optional exporters
 ```
 
-- Prefer Poetry (`python scripts/run_quality_gates.py` wraps lint/mypy/tests).
+- Prefer Poetry for local development and quality checks.
 - Ensure Python ≥ 3.10.
 - If you use `pip`, remember to add `src/` to `PYTHONPATH` for local demos.
 
@@ -256,7 +256,10 @@ Consult [`docs/configuration.md`](configuration.md) for every available toggle.
    Expect JSON logs plus span output.
 2. Execute the quality gates:
    ```bash
-   python scripts/run_quality_gates.py
+   poetry run ruff format --check .
+   poetry run ruff check .
+   poetry run mypy
+   poetry run pytest
    ```
 3. Inspect diagnostics:
    ```bash

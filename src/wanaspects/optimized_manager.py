@@ -59,7 +59,7 @@ class OptimizedAspectManager:
             # Build a wrapped call using a nested function instead of a lambda
             def _make_wrapped(a: Aspect, inner_call: Callable[[], Any]) -> Callable[[], Any]:
                 def _inner() -> Any:
-                    return a.around(ctx, lambda: inner_call())
+                    return a.around(ctx, inner_call)
 
                 return _inner
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 import unicodedata
-from typing import Any
+from typing import Literal, cast
 
 __all__ = ["UnicodeSafeFormatter"]
 
@@ -31,7 +31,12 @@ class UnicodeSafeFormatter(logging.Formatter):
         emoji_replacement: str = "OK",
         replacement: str = "?",
     ) -> None:
-        super().__init__(fmt=fmt, datefmt=datefmt, style=style)
+        safe_style = style if style in {"%", "{", "$"} else "%"
+        super().__init__(
+            fmt=fmt,
+            datefmt=datefmt,
+            style=cast(Literal["%", "{", "$"], safe_style),
+        )
         self.encoding = (encoding or "utf-8").lower()
         self._strip_emoji_setting = strip_emoji
         self.emoji_replacement = emoji_replacement
@@ -40,6 +45,7 @@ class UnicodeSafeFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:  # noqa: D401
         """Format the record and sanitize unencodable characters."""
 
+        self._ensure_compat_fields(record)
         formatted = super().format(record)
         sanitized = self._sanitize(formatted)
         if record.exc_text:
@@ -49,9 +55,12 @@ class UnicodeSafeFormatter(logging.Formatter):
         return sanitized
 
     # Internal helpers -------------------------------------------------
-    def _sanitize(self, value: Any) -> Any:
-        if not isinstance(value, str):
-            return value
+    @staticmethod
+    def _ensure_compat_fields(record: logging.LogRecord) -> None:
+        if not hasattr(record, "levelprefix"):
+            record.levelprefix = record.levelname
+
+    def _sanitize(self, value: str) -> str:
         if not value or self.encoding == "utf-8":
             return value
         sanitized = self._strip_unencodable(value)

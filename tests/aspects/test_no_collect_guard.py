@@ -1,4 +1,5 @@
 import pytest
+
 from wanaspects.aspects import ChainContractError
 from wanaspects.aspects.contract import ContractAspect
 from wanaspects.core.context import AdviceContext

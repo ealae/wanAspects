@@ -2,6 +2,7 @@ import logging
 from types import SimpleNamespace
 
 import pytest
+
 from wanaspects.filters.redaction import RedactionFilter
 
 

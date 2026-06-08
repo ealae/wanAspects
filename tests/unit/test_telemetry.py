@@ -1,6 +1,7 @@
 import logging
 
 import pytest
+
 from wanaspects.config import Config
 from wanaspects.filters.redaction import RedactionFilter
 from wanaspects.formatters.unicode_safe import UnicodeSafeFormatter

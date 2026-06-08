@@ -10,6 +10,7 @@ from ..core.aspect import Aspect
 from ..core.context import AdviceContext
 
 # optional structlog integration
+_structlog: Any | None
 try:  # pragma: no cover - import environment dependent
     import structlog as _structlog
 except Exception:  # pragma: no cover

@@ -4,7 +4,7 @@ Imports fail (ModuleNotFoundError: wanaspects)
 - Ensure the source is on PYTHONPATH: run tests via repo root (we add `src/` in `tests/conftest.py`), or `pip install -e .`.
 
 Pytest complains about coverage options
-- Install dev extras: `pip install -e .[dev]` or run tests with `pytest -q`. The coverage gate mirrors the same `pytest` invocation used in CI.
+- Install dev extras: `pip install -e .[dev]` or run tests with `pytest -q`. The coverage gate mirrors the CI `pytest` invocation and is enforced by the standard quality commands.
 
 Mypy cannot find structlog/opentelemetry
 - We ignore missing type stubs for these optional packages in `pyproject.toml`. Install them or continue; runtime behavior no-ops if absent.
@@ -20,4 +20,5 @@ Boundary errors
 - If you hit `ContractViolation` when collecting, wrap the operation with `materialize(lambda: ...)` and set a boundary.
 
 Ruff/mypy failures
-- Run a local quality sweep (`ruff format . && ruff check src tests && mypy --strict src/wanaspects && pytest -q`) to auto-format and re-run lint/types/tests.
+- Run `ruff format --check . && ruff check . && mypy --strict src/wanaspects && pytest -q` to verify formatting, lint, types, and tests.
+- Use `ruff format .` when you want to apply formatting fixes before re-running the sweep.

@@ -2,6 +2,7 @@ import os
 import time
 
 import pytest
+
 from wanaspects import AspectManager, default_bundle
 from wanaspects.core.context import AdviceContext
 

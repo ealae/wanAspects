@@ -1,6 +1,7 @@
 import importlib.util
 
 import pytest
+
 from wanaspects.aspects.tracing import TracingAspect
 from wanaspects.core.context import AdviceContext
 from wanaspects.manager import AspectManager

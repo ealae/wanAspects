@@ -66,9 +66,7 @@ class SampledMetricsAspect(MetricsAspect):
         self._counter += 1
         return (self._counter % self._sample_interval) == 0
 
-    def after(
-        self, ctx: AdviceContext, result: Any, error: Exception | None
-    ) -> None:
+    def after(self, ctx: AdviceContext, result: Any, error: Exception | None) -> None:
         """Collect metrics only if this call is sampled.
 
         Errors are always tracked. Successful calls are sampled at the
